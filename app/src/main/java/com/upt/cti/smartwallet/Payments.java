@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -40,6 +42,7 @@ public class Payments extends AppCompatActivity {
 
         initializeComponents();
         getPaymentsFromDB();
+        onFabButtonClick();
     }
 
     public void initializeComponents(){
@@ -49,8 +52,6 @@ public class Payments extends AppCompatActivity {
         fabAdd = (FloatingActionButton) findViewById(R.id.fabAdd);
         listPayments = (ListView) findViewById(R.id.listPayments);
     }
-
-
 
     public void getPaymentsFromDB( ){
         databaseReference.child("wallet").addChildEventListener(new ChildEventListener() {
@@ -89,6 +90,17 @@ public class Payments extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void onFabButtonClick(){
+        fabAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Payments.this, AddPayment.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
 }
